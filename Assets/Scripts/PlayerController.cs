@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
 
     public LayerMask groundLayer;
-
-    public GameObject victoryPanel;
     
     private float _moveX;
 
@@ -48,6 +46,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            Debug.Log("Jump");
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
         }
     }
@@ -76,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
-            victoryPanel.SetActive(true);
+            UIManager.instance.Win();
             canMove = false;
             _animator.SetBool("isRunning", false);
         }

@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     public Transform respawnPoint;
 
     public CinemachineCamera cam;
-
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -28,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Spike"))
         {
+            GameManager.instance.deaths++;
             _playerController.canMove = false;
             _animator.SetBool("isFalling", true);
             _rb.linearVelocity = new Vector2(0, _playerController.jumpForce);
@@ -40,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
         
         else if (other.CompareTag("Fall"))
         {
+            GameManager.instance.deaths++;
             _playerController.canMove = false;
             _animator.SetBool("isFalling", true);
             _collider.enabled = false;
