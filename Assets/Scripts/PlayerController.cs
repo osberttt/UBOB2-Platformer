@@ -17,9 +17,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
 
     public GameObject victoryPanel;
-
     
-
     private float _moveX;
 
     public bool canMove = true;
@@ -37,7 +35,7 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             HandleMovement();
-            HandleAnimation();
+            HandleAnimations();
             FlipSprite();
         }
     }
@@ -54,7 +52,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleAnimation()
+    private void HandleAnimations()
     {
         _animator.SetBool("isRunning", _rb.linearVelocity.x != 0); // if player's moving, true.
         _animator.SetBool("isRising", _rb.linearVelocity.y > 0);
@@ -73,6 +71,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Trigger function
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Finish"))
@@ -82,6 +81,5 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isRunning", false);
         }
     }
-    
-    // change
+
 }
