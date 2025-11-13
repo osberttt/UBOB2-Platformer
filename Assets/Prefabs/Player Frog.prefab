@@ -255,6 +255,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   canMove: 1
+  isGrounded: 0
+  jumpSound: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
+  landingSound: {fileID: 8300000, guid: eaae8fe8d600e1f459f34aa5757fa3b8, type: 3}
 --- !u!114 &5784702283417397702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70a0c10988decd4b8f103904da2b611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  respawnPoint: {fileID: 0}
-  cam: {fileID: 837823899986931897}
+  cam: {fileID: 0}
 --- !u!50 &7994257389125396668
 Rigidbody2D:
   serializedVersion: 5
