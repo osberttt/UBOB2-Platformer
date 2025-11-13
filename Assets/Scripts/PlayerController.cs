@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
     private float _moveX;
 
     public bool canMove = true;
+    public bool isGrounded;
+    
+    public AudioClip jumpSound;
+
+    public AudioClip landingSound;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,13 +46,19 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        var isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer); // raycast
+        var g = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer); // raycast
+        if (!isGrounded && g)
+        {
+            // landing frame
+            AudioManager.instance.PlaySfx(landingSound);
+        }
+        isGrounded = g;
         _moveX = Input.GetAxis("Horizontal"); // if A(left arrow), -1. if D (right arrow), +1. if nothing, 0.
         _rb.linearVelocity = new Vector2(_moveX * speed, _rb.linearVelocity.y);
         
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Debug.Log("Jump");
+            AudioManager.instance.PlaySfx(jumpSound);
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
         }
     }

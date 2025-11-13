@@ -9,10 +9,8 @@ public class PlayerHealth : MonoBehaviour
     private Animator _animator;
     private CapsuleCollider2D _collider;
     private PlayerController _playerController;
-    
-    public GameObject gameOverPanel;
 
-    public Transform respawnPoint;
+    private Transform respawnPoint;
 
     public CinemachineCamera cam;
     
@@ -22,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
         _animator = GetComponent<Animator>();
         _collider = GetComponent<CapsuleCollider2D>();
         _playerController = GetComponent<PlayerController>();
+        respawnPoint = GameObject.Find("Respawn Point").transform;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
             _animator.SetBool("isFalling", true);
             _collider.enabled = false;
             cam.Follow = null;
-            gameOverPanel.SetActive(true);
+            UIManager.instance.ShowGameOver();
         }
     }
     

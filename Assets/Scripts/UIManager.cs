@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public GameObject victoryPanel;
     public TextMeshProUGUI totalApplesText;
     public TextMeshProUGUI totalDeathsText;
+    public TextMeshProUGUI applesinLevelText;
+    public GameObject gameOverPanel;
     
     public static UIManager instance;
 
@@ -36,5 +38,15 @@ public class UIManager : MonoBehaviour
         victoryPanel.SetActive(true);
         totalApplesText.text = GameManager.instance.apples.ToString();
         totalDeathsText.text = GameManager.instance.deaths.ToString();
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void SetAppleCount(int count)
+    {
+        applesinLevelText.text = count.ToString();
     }
 }
