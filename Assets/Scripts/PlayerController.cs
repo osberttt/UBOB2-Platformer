@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpSound;
 
     public AudioClip landingSound;
+
+    public ParticleSystem walkParticles;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,9 +43,21 @@ public class PlayerController : MonoBehaviour
             HandleMovement();
             HandleAnimations();
             FlipSprite();
+            HandleWalkParticles();
         }
     }
 
+    private void HandleWalkParticles()
+    {
+        if (_rb.linearVelocity.x != 0)
+        {
+            walkParticles.Play();
+        }
+        else
+        {
+            walkParticles.Stop();
+        }
+    }
     private void HandleMovement()
     {
         var g = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer); // raycast
@@ -58,7 +72,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            AudioManager.instance.PlaySfx(jumpSound);
+            AudioManager.instance.PlaySfx(jumpSound, 0.6f);
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
         }
     }
@@ -66,8 +80,8 @@ public class PlayerController : MonoBehaviour
     private void HandleAnimations()
     {
         _animator.SetBool("isRunning", _rb.linearVelocity.x != 0); // if player's moving, true.
-        _animator.SetBool("isRising", _rb.linearVelocity.y > 0);
-        _animator.SetBool("isFalling", _rb.linearVelocity.y < 0);
+        _animator.SetBool("isRising", _rb.linearVelocity.y > 0 && !isGrounded);
+        _animator.SetBool("isFalling", _rb.linearVelocity.y < 0 && !isGrounded);
     }
 
     private void FlipSprite()
@@ -92,5 +106,4 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isRunning", false);
         }
     }
-
 }

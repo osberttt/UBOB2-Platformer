@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Spike"))
         {
+            SaveManager.instance.Die();
             GameManager.instance.deaths++;
             _playerController.canMove = false;
             _animator.SetBool("isFalling", true);
@@ -40,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
         
         else if (other.CompareTag("Fall"))
         {
+            SaveManager.instance.Die();
             GameManager.instance.deaths++;
             _playerController.canMove = false;
             _animator.SetBool("isFalling", true);

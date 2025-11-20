@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     }
 
     public AudioSource musicSource;
-    public AudioSource sfxSource;
+    public GameObject sfxSourcePrefab;
 
     public void PlayMusic(AudioClip clip)
     {
@@ -28,8 +28,22 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlaySfx(AudioClip clip)
+    public void PlaySfx(AudioClip clip, float volume = 0.5f)
     {
+        var sfxSourceObj = Instantiate(sfxSourcePrefab, transform);
+        var sfxSource = sfxSourceObj.GetComponent<AudioSource>();
+        sfxSource.volume = volume;
         sfxSource.PlayOneShot(clip);
+        Destroy(sfxSourceObj, clip.length);
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
+    public void ResumeMusic()
+    {
+        musicSource.Play();
     }
 }
