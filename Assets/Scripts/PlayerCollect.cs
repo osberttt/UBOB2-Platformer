@@ -6,20 +6,20 @@ public class PlayerCollect : MonoBehaviour
 {
     public GameObject appleParticlePrefab;
     public AudioClip appleSound;
-    private int _appleCount = 0;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Apple"))
         {
-            var appleGO = Instantiate(appleParticlePrefab, other.transform.position, Quaternion.identity);
-            var appleParticle = appleGO.GetComponent<ParticleSystem>();
+            var apple = other.GetComponent<Apple>();
+            AppleManager.instance.CollectApple(apple.id);
+            
+            var appleParticleGO = Instantiate(appleParticlePrefab, other.transform.position, Quaternion.identity);
+            var appleParticle = appleParticleGO.GetComponent<ParticleSystem>();
             appleParticle.Play();
-            Destroy(appleGO, appleParticle.main.duration);
+            Destroy(appleParticleGO, appleParticle.main.duration);
             AudioManager.instance.PlaySfx(appleSound);
-            GameManager.instance.apples++;
-            _appleCount++;
-            UIManager.instance.SetAppleCount(_appleCount);
+            UIManager.instance.SetAppleCount(AppleManager.instance.AppleCount());
             Destroy(other.gameObject);
         }
     }

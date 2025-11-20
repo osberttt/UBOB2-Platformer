@@ -18,14 +18,19 @@ public class UIManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        applesinLevelText.text = AppleManager.instance.AppleCount();
+    }
+
     public void Restart()
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Next()
     {
-        SceneManager.LoadScene("Level 2");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void MainMenu()
@@ -45,8 +50,8 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
-    public void SetAppleCount(int count)
+    public void SetAppleCount(string count)
     {
-        applesinLevelText.text = count.ToString();
+        applesinLevelText.text = count;
     }
 }

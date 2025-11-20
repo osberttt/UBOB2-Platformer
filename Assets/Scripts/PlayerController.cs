@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private CapsuleCollider2D _collider;
     
-    public Transform groundCheck;
+    [SerializeField] private Transform groundCheck;
 
     public LayerMask groundLayer;
     
@@ -104,6 +104,22 @@ public class PlayerController : MonoBehaviour
             UIManager.instance.Win();
             canMove = false;
             _animator.SetBool("isRunning", false);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("MovingBox"))
+        {
+            transform.parent = other.transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("MovingBox"))
+        {
+            transform.parent = null;
         }
     }
 }

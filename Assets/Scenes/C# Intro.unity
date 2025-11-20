@@ -285,7 +285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512a9b544e302b0419d17a24452184cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script1
-  enemyPrefab: {fileID: 3009517612839243949, guid: 650ae23b5e2a9994cae9a0d8ad889c2e, type: 3}
+  fruits:
+  - apple
+  - orange
+  - mango
 --- !u!4 &1701840555
 Transform:
   m_ObjectHideFlags: 0
